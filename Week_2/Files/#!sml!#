@@ -1,0 +1,206 @@
+
+c:\Users\LOHTECKFEILOHTECKFEI\Desktop\UOW\Week_2\Files>REM sml.bat 
+
+c:\Users\LOHTECKFEILOHTECKFEI\Desktop\UOW\Week_2\Files>REM
+
+c:\Users\LOHTECKFEILOHTECKFEI\Desktop\UOW\Week_2\Files>REM Copyright 2020 The Fellowship of SML/NJ (http://www.smlnj.org) 
+
+c:\Users\LOHTECKFEILOHTECKFEI\Desktop\UOW\Week_2\Files>REM All rights reserved. 
+
+c:\Users\LOHTECKFEILOHTECKFEI\Desktop\UOW\Week_2\Files>REM
+
+c:\Users\LOHTECKFEILOHTECKFEI\Desktop\UOW\Week_2\Files>REM The standard driver for SML/NJ under the new runtime system 
+
+c:\Users\LOHTECKFEILOHTECKFEI\Desktop\UOW\Week_2\Files>REM
+Standard ML of New Jersey (32-bit) v110.99.4 [built: Tue Aug 01 11:26:46 2023]
+- use "hw1.sml";
+[opening hw1.sml]
+hw1.sml:6.5 Error: syntax error: inserting  OP
+hw1.sml:7.13 Error: syntax error: inserting  OP
+[unexpected exception: Compile]
+
+uncaught exception Compile [Compile: "syntax error"]
+  raised at: ../compiler/Parse/main/smlfile.sml:19.24-19.46
+             ../compiler/TopLevel/interact/evalloop.sml:45.54
+             ../compiler/TopLevel/interact/evalloop.sml:306.20-306.23
+             ../compiler/TopLevel/interact/interact.sml:65.39-65.42
+- 
+
+Process sml finished
+
+c:\Users\LOHTECKFEILOHTECKFEI\Desktop\UOW\Week_2\Files>REM sml.bat 
+
+c:\Users\LOHTECKFEILOHTECKFEI\Desktop\UOW\Week_2\Files>REM
+
+c:\Users\LOHTECKFEILOHTECKFEI\Desktop\UOW\Week_2\Files>REM Copyright 2020 The Fellowship of SML/NJ (http://www.smlnj.org) 
+
+c:\Users\LOHTECKFEILOHTECKFEI\Desktop\UOW\Week_2\Files>REM All rights reserved. 
+
+c:\Users\LOHTECKFEILOHTECKFEI\Desktop\UOW\Week_2\Files>REM
+
+c:\Users\LOHTECKFEILOHTECKFEI\Desktop\UOW\Week_2\Files>REM The standard driver for SML/NJ under the new runtime system 
+
+c:\Users\LOHTECKFEILOHTECKFEI\Desktop\UOW\Week_2\Files>REM
+Standard ML of New Jersey (32-bit) v110.99.4 [built: Tue Aug 01 11:26:46 2023]
+- use "hw1.sml";
+[opening hw1.sml]
+[autoloading]
+[library $SMLNJ-BASIS/basis.cm is stable]
+[library $SMLNJ-BASIS/(basis.cm):basis-common.cm is stable]
+[autoloading done]
+hw1.sml:13.9 Error: expression or pattern begins with infix identifier "<"
+hw1.sml:13.9-13.13 Error: non-constructor applied to argument in pattern: <
+hw1.sml:10.10 Error: expression or pattern begins with infix identifier "<"
+hw1.sml:10.10-10.14 Error: non-constructor applied to argument in pattern: <
+val it = () : unit
+- 
+
+Process sml finished
+
+c:\Users\LOHTECKFEILOHTECKFEI\Desktop\UOW\Week_2\Files>REM sml.bat 
+
+c:\Users\LOHTECKFEILOHTECKFEI\Desktop\UOW\Week_2\Files>REM
+
+c:\Users\LOHTECKFEILOHTECKFEI\Desktop\UOW\Week_2\Files>REM Copyright 2020 The Fellowship of SML/NJ (http://www.smlnj.org) 
+
+c:\Users\LOHTECKFEILOHTECKFEI\Desktop\UOW\Week_2\Files>REM All rights reserved. 
+
+c:\Users\LOHTECKFEILOHTECKFEI\Desktop\UOW\Week_2\Files>REM
+
+c:\Users\LOHTECKFEILOHTECKFEI\Desktop\UOW\Week_2\Files>REM The standard driver for SML/NJ under the new runtime system 
+
+c:\Users\LOHTECKFEILOHTECKFEI\Desktop\UOW\Week_2\Files>REM
+Standard ML of New Jersey (32-bit) v110.99.4 [built: Tue Aug 01 11:26:46 2023]
+- use "hw1.sml";
+[opening hw1.sml]
+[autoloading]
+[library $SMLNJ-BASIS/basis.cm is stable]
+[library $SMLNJ-BASIS/(basis.cm):basis-common.cm is stable]
+[autoloading done]
+hw1.sml:9.18-16.23 Error: match redundant
+          true => ...
+          false => ...
+    -->   false => ...
+    -->   false => ...
+    -->   false => ...
+    -->   false => ...
+  
+hw1.sml:8.13-16.23 Warning: match nonexhaustive
+          true => ...
+  
+hw1.sml:7.15-16.23 Warning: match nonexhaustive
+          true => ...
+  
+hw1.sml:6.10-16.23 Warning: match nonexhaustive
+          true => ...
+  
+hw1.sml:5.5-16.23 Warning: match nonexhaustive
+          true => ...
+  
+val it = () : unit
+- if year_equal
+	then
+	    mth_equal andalso date_less orelse mth_less	    
+	else year_less
+    end
+
+= 
+= ;
+= stdIn:6.5 Error: syntax error found at END
+- 
+
+Process sml finished
+
+c:\Users\LOHTECKFEILOHTECKFEI\Desktop\UOW\Week_2\Files>REM sml.bat 
+
+c:\Users\LOHTECKFEILOHTECKFEI\Desktop\UOW\Week_2\Files>REM
+
+c:\Users\LOHTECKFEILOHTECKFEI\Desktop\UOW\Week_2\Files>REM Copyright 2020 The Fellowship of SML/NJ (http://www.smlnj.org) 
+
+c:\Users\LOHTECKFEILOHTECKFEI\Desktop\UOW\Week_2\Files>REM All rights reserved. 
+
+c:\Users\LOHTECKFEILOHTECKFEI\Desktop\UOW\Week_2\Files>REM
+
+c:\Users\LOHTECKFEILOHTECKFEI\Desktop\UOW\Week_2\Files>REM The standard driver for SML/NJ under the new runtime system 
+
+c:\Users\LOHTECKFEILOHTECKFEI\Desktop\UOW\Week_2\Files>REM
+Standard ML of New Jersey (32-bit) v110.99.4 [built: Tue Aug 01 11:26:46 2023]
+- use "hw1.sml";
+[opening hw1.sml]
+[autoloading]
+[library $SMLNJ-BASIS/basis.cm is stable]
+[library $SMLNJ-BASIS/(basis.cm):basis-common.cm is stable]
+[autoloading done]
+hw1.sml:27.6-27.15 Error: unbound variable or constructor: mth_equal
+hw1.sml:27.24-27.33 Error: unbound variable or constructor: date_less
+hw1.sml:27.41-27.49 Error: unbound variable or constructor: mth_less
+hw1.sml:28.7-28.16 Error: unbound variable or constructor: year_less
+val it = () : unit
+- 
+
+Process sml finished
+
+c:\Users\LOHTECKFEILOHTECKFEI\Desktop\UOW\Week_2\Files>REM sml.bat 
+
+c:\Users\LOHTECKFEILOHTECKFEI\Desktop\UOW\Week_2\Files>REM
+
+c:\Users\LOHTECKFEILOHTECKFEI\Desktop\UOW\Week_2\Files>REM Copyright 2020 The Fellowship of SML/NJ (http://www.smlnj.org) 
+
+c:\Users\LOHTECKFEILOHTECKFEI\Desktop\UOW\Week_2\Files>REM All rights reserved. 
+
+c:\Users\LOHTECKFEILOHTECKFEI\Desktop\UOW\Week_2\Files>REM
+
+c:\Users\LOHTECKFEILOHTECKFEI\Desktop\UOW\Week_2\Files>REM The standard driver for SML/NJ under the new runtime system 
+
+c:\Users\LOHTECKFEILOHTECKFEI\Desktop\UOW\Week_2\Files>REM
+Standard ML of New Jersey (32-bit) v110.99.4 [built: Tue Aug 01 11:26:46 2023]
+- use "hw1.sml";
+[opening hw1.sml]
+hw1.sml:27.5-27.8 Error: syntax error: replacing  END with  SEMICOLON
+[unexpected exception: Compile]
+
+uncaught exception Compile [Compile: "syntax error"]
+  raised at: ../compiler/Parse/main/smlfile.sml:19.24-19.46
+             ../compiler/TopLevel/interact/evalloop.sml:45.54
+             ../compiler/TopLevel/interact/evalloop.sml:306.20-306.23
+             ../compiler/TopLevel/interact/interact.sml:65.39-65.42
+- 
+
+Process sml finished
+
+c:\Users\LOHTECKFEILOHTECKFEI\Desktop\UOW\Week_2\Files>REM sml.bat 
+
+c:\Users\LOHTECKFEILOHTECKFEI\Desktop\UOW\Week_2\Files>REM
+
+c:\Users\LOHTECKFEILOHTECKFEI\Desktop\UOW\Week_2\Files>REM Copyright 2020 The Fellowship of SML/NJ (http://www.smlnj.org) 
+
+c:\Users\LOHTECKFEILOHTECKFEI\Desktop\UOW\Week_2\Files>REM All rights reserved. 
+
+c:\Users\LOHTECKFEILOHTECKFEI\Desktop\UOW\Week_2\Files>REM
+
+c:\Users\LOHTECKFEILOHTECKFEI\Desktop\UOW\Week_2\Files>REM The standard driver for SML/NJ under the new runtime system 
+
+c:\Users\LOHTECKFEILOHTECKFEI\Desktop\UOW\Week_2\Files>REM
+Standard ML of New Jersey (32-bit) v110.99.4 [built: Tue Aug 01 11:26:46 2023]
+- use "hw1.sml";
+[opening hw1.sml]
+[autoloading]
+[library $SMLNJ-BASIS/basis.cm is stable]
+[library $SMLNJ-BASIS/(basis.cm):basis-common.cm is stable]
+[autoloading done]
+val is_older1 = fn : (int * int * int) * (int * int * int) -> bool
+val is_older = fn : (int * int * int) * (int * int * int) -> bool
+val number_in_month = fn : (int * int * int) list * int -> int
+val number_in_months = fn : (int * int * int) list * int list -> int
+val dates_in_month = fn
+  : (int * int * int) list * int -> (int * int * int) list
+val dates_in_months = fn
+  : (int * int * int) list * int list -> (int * int * int) list
+val get_nth = fn : string list * int -> string
+val date_to_string = fn : int * int * int -> string
+val number_before_reaching_sum = fn : int * int list -> int
+val what_month = fn : int -> int
+val month_range = fn : int * int -> int list
+val oldest = fn : (int * int * int) list -> (int * int * int) option
+val it = () : unit
+- 

@@ -1,0 +1,112 @@
+(* Dan Grossman, Coursera PL, HW2 Provided Code *)
+
+(* if you use this function to compare two strings (returns true if the same
+   string), then you avoid several of the functions in problem 1 having
+   polymorphic types that may be confusing *)
+fun same_string(s1 : string, s2 : string) =
+    s1 = s2
+
+(* put your solutions for problem 1 here *)
+fun remove_entry(x, []) = []
+   |remove_entry(x, x1::xs) = if (x=x1) then xs else x1::remove_entry(x,xs)
+fun find(s1, []) = false
+   |find(s1, s2::tlstrs) = (same_string(s1, s2)) orelse (find(s1, tlstrs))
+fun all_except_option(s1, strs) = 
+   if find(s1, strs) then SOME (remove_entry(s1, strs)) else NONE
+
+fun get_substitutions1([], s) = []
+   |get_substitutions1(ls::lss, s) = 
+      case all_except_option(s, ls) of
+         SOME lst  => lst@get_substitutions1(lss,s)
+      |  NONE      => get_substitutions1(lss,s)
+
+fun get_substitutions2(lss, s) = 
+   let fun get_sub2([], s, acc) = acc
+           |get_sub2(ls::lsss, s, acc) = 
+               case all_except_option(s, ls) of
+                  SOME lst    => get_sub2(lsss, s, acc@lst)
+               |  NONE        => get_sub2(lsss, s, acc)
+
+   in 
+   get_sub2(lss, s, [])
+   end
+
+fun similar_names(sll, fullname) = 
+   let 
+      val {first=first, middle=middle,last=last} = fullname;
+      val subfn = get_substitutions2(sll,first)
+      fun simi_names([],acc) = acc
+         |simi_names(s::ss, acc) =  simi_names(ss,acc@[{first=s, middle=middle, last=last}])
+   in
+      simi_names(subfn, [fullname])
+   end
+
+
+(* you may assume that Num is always used with values 2, 3, ..., 10
+   though it will not really come up *)
+datatype suit = Clubs | Diamonds | Hearts | Spades
+datatype rank = Jack | Queen | King | Ace | Num of int 
+type card = suit * rank
+
+datatype color = Red | Black
+datatype move = Discard of card | Draw 
+
+exception IllegalMove
+
+(* put your solutions for problem 2 here *)
+
+
+fun card_color(card) = 
+   case card of (Spades,_) => Black
+               |(Clubs, _) => Black
+               (* |(Hearts,_) => Red *) (*no need to check if hearts/diamond both are red*)
+               | _         => Red
+
+
+fun card_value(card) = 
+   case card of (_, Num i) => i
+               |(_, Ace)   => 11
+               | _         => 10
+
+fun remove_card([], c, e) = raise e
+   |remove_card(cs, c, e) = 
+   let 
+      fun keep_until([],c, acc) = raise e
+         |keep_until([c0],c, acc) = if c0 = c then acc else raise e
+         |keep_until(c1::cs, c, acc) = if c1 = c then acc@cs else keep_until(cs, c, acc@[c1])
+   in
+      keep_until(cs, c, [])
+   end
+
+
+
+fun all_same_color([]) = true
+   |all_same_color(c::[]) = true
+   (* |all_same_color(c1::c2::[]) = (card_color(c1) = card_color(c2)) *)
+   |all_same_color(c1::c2::cs) = (card_color(c1) = card_color(c2)) andalso (all_same_color(c2::cs))
+
+fun sum_cards(cs) = 
+   let fun sumtr([], acc) = acc
+          |sumtr(c::css, acc) = sumtr(css, acc + card_value(c))
+   in
+      sumtr(cs, 0)
+   end
+
+fun score(cs, goal) = 
+   let 
+      val diff = sum_cards(cs) - goal
+      val prelim_score = if (diff > 0) then 3*diff else 0 - diff
+   in
+      if all_same_color(cs) then prelim_score div 2 else prelim_score
+   end
+
+fun officiate(cs, ms, goal) = 
+   let
+      fun gaming(_, [], hand_card) = hand_card
+          |gaming([], [Draw], hand_card) = hand_card
+          |gaming(new_card::css, mv::mvs, hand_card) = 
+            case mv of (Draw) => if sum_cards (new_card::hand_card) >= goal then (new_card::hand_card) else gaming(css, mvs, new_card::hand_card)
+                      |(Discard c) => gaming(new_card::css, mvs, remove_card(hand_card, c, IllegalMove))
+   in
+      score(gaming(cs, ms, []), goal)
+end

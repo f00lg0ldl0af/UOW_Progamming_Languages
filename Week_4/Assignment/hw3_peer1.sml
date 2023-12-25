@@ -1,0 +1,183 @@
+(* Coursera Programming Languages, Homework 3, Provided Code *)
+
+(**** you can put all your code here ****)
+fun only_capitals sl =
+		List.filter (fn x => Char.isUpper( String.sub (x, 0))) sl
+
+fun longest_string1 sl =
+		List.foldl (fn (s, l) => if String.size s > String.size l then s else l) "" sl
+
+fun longest_string2 sl =
+		List.foldl (fn (s, l) => if String.size s >= String.size l then s else l) "" sl
+
+fun longest_string_helper f sl =
+		List.foldl (fn (s, l) => if f(String.size s, String.size l) then s else l) "" sl
+
+val longest_string3 =
+		longest_string_helper (fn (s1,s2) => s1 > s2)
+
+val longest_string4 =
+		longest_string_helper (fn (s1,s2) => s1 >= s2)
+
+val longest_capitalized = longest_string3 o only_capitals
+
+val rev_string  = String.implode  o List.rev  o String.explode
+
+fun first_answer f xs =
+    case xs of [] => raise NoAnswer
+	     | x::xs' => case f x of NONE => first_answer f xs'
+				   | SOME n => n
+
+fun all_answers f xs =
+	let
+	fun helper xs acc =
+		case xs of
+			  [] => SOME acc
+			| x::xs' => case f x of NONE => NONE
+					      | SOME ls => helper xs' (acc @ ls)
+	in helper xs [] end
+
+val count_wildcards  =
+	g (fn () => 1) (fn _ => 0)
+
+val count_wild_and_variable_lengths  =
+	g (fn () => 1) String.size
+
+fun count_some_var (s, p) =
+	g (fn () => 0) (fn x => if x = s then 1 else 0) p
+
+fun check_pat p =
+	let
+	fun helper p =
+		case p of
+			  Variable x        => [x]
+			| TupleP ps         => List.foldl (fn (p,i) => helper p @ i) [] ps
+			| ConstructorP(_,p) => helper p
+			| _                 => []
+	fun distinct ps =
+		case ps of
+			  [] => true
+			| p::ps' => if List.exists (fn x => x = p) ps'
+						then false
+						else distinct ps'
+	in
+	distinct (helper p)
+	end
+
+fun match (v, p) =
+	case (v, p) of
+		  (_, Wildcard) => SOME []
+		| (v1, Variable x) => SOME [(x, v1)]
+		| (Unit, UnitP) => SOME []
+		| (Const i1, ConstP i2) => if i1 = i2 then SOME [] else NONE
+		| (Constructor(s1,v1), ConstructorP(s2,p1)) => if s1 = s2 then match(v1,p1) else NONE
+		| (Tuple vs, TupleP ps) => if List.length vs = List.length ps
+								   then all_answers match (ListPair.zip(vs, ps))
+								   else NONE
+		| (_,_) => NONE
+
+fun first_match v ps =
+	SOME (first_answer (fn x => match (v,x)) ps) handle NoAnswer => NONE
+
+exception NoAnswer
+
+datatype pattern = Wildcard | Variable of string
+			 | UnitP
+			 | ConstP of int
+			 | TupleP of pattern list
+			 | ConstructorP of string * pattern
+
+datatype valu = Const of int
+	     | Unit
+	     | Tuple of valu list
+	     | Constructor of string * valu
+
+fun g f1 f2 p =
+    let
+		val r = g f1 f2
+    in
+		case p of
+				Wildcard          => f1 ()
+			| Variable x        => f2 x
+			| TupleP ps         => List.foldl (fn (p,i) => (r p) + i) 0 ps
+			| ConstructorP(_,p) => r p
+			| _                 => 0
+    end
+
+
+datatype typ = Anything
+	     | UnitT
+	     | IntT
+	     | TupleT of typ list
+	     | Datatype of string
+									    
+(* Challenge "type-checks" a pattern list i.e., create an algorithm that infers the type t of x based on patterns p1, p2, ..., pn
+
+fn: ((string * string * typ) list) * (pattern list) -> typ option.
+
+- 1st argument ("foo","bar",IntT) i.e., constructor foo makes a value of type Datatype "bar" given value of type IntT
+contains a type list
+	 [ ("Red", "color", UnitT),
+	   ("Green", "color", UnitT),
+	   ("Blue", "color", UnitT)
+	 ]
+ 
+- 2nd argument contains the patterns p1, p2, ..., pn
+- If all the patterns in the case expression are compatible with some type t
+then the answer is SOME t, otherwise NONE.
+
+ *)									    
+fun typecheck_patterns (ds, ps) =
+    let fun tcheck p acc =
+	    let fun cycleT ps ts acc = case ps of
+					   [] => acc
+					|  p::ps' => cycleT ps' (tl ts) ( acc @
+								 [valOf (tcheck p (SOME (hd ts)))])
+
+		fun cycleTA ps acc =
+			case ps of
+				  [] => acc
+				| p::ps' => cycleTA ps'  (acc @ [valOf (tcheck p (SOME Anything))])
+
+		fun validd dname ds pat =
+			case ds of
+				  [] => raise NoAnswer
+				| (dcons,dtype,dpat)::ds' => if (dname = dcons) andalso isSome (tcheck pat (SOME (dpat)))
+											 then (Datatype dtype)
+											 else validd dname ds' pat
+	    in
+		case (p,acc) of (Wildcard,SOME Anything) => SOME Anything
+					  | (Wildcard, SOME UnitT) =>  SOME UnitT
+					  | (Wildcard, SOME IntT) => SOME IntT
+					  | (Wildcard, SOME (TupleT ps)) => SOME (TupleT ps)
+					  | (Wildcard, SOME (Datatype s)) => SOME (Datatype s)
+					  | (Variable _,SOME Anything) => SOME Anything | (Variable _, SOME UnitT) =>  SOME UnitT
+					  | (Variable _, SOME IntT) => SOME IntT
+					  | (Variable _, SOME (TupleT ps)) => SOME (TupleT ps)
+					  | (Variable _, SOME (Datatype s)) => SOME (Datatype s)
+					  | (UnitP,SOME UnitT) => SOME UnitT
+					  | (UnitP, SOME Anything) => SOME UnitT
+					  | (ConstP i, SOME IntT) => SOME IntT
+					  | (ConstP i, SOME Anything) => SOME IntT
+									      
+					  | (TupleP (ps), SOME Anything) => SOME (TupleT (cycleTA ps [])) (*cycleTA*)
+										 
+					  | (TupleP (ps), SOME (TupleT (ts))) =>
+						  if List.length ps = List.length ts then SOME (TupleT (cycleT ps ts [])) (*cycleT*)
+						  else raise NoAnswer
+							     
+					  | (ConstructorP(s, pat),SOME Anything) => SOME (validd s ds pat) (*validd*)
+
+					  | (ConstructorP(s, pat), SOME (Datatype d)) => if (validd s ds pat) = (Datatype d)
+											 then SOME (Datatype d)
+											 else raise NoAnswer
+
+					  | (_,_) => raise NoAnswer
+	    end
+
+	fun cycle ps acc = case ps of [] => acc
+				    | p::ps' => cycle ps' (tcheck p acc)
+    in
+	if null ps then NONE else cycle ps (SOME (Anything))
+				  handle NoAnswer => NONE
+    end
